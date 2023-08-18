@@ -140,6 +140,10 @@ ggplot(data2, aes(Var1, Var2, fill= value)) +
   guides(fill = guide_colourbar(title = NULL, ticks = FALSE))
 
 ```
+
+<img src='figure/data 2/data2-1.png' width='50%' height='50%'> </img>
+<img src='figure/data 2/data2-2.png' width='50%' height='50%'> </img>
+
 ### 95% credible interval of Beta
 ```r
 row_name <- colnames(X)
@@ -170,9 +174,24 @@ post_Beta$rowname <- as.character(rownames(post_Beta))
 post_Beta$rowname <- factor(post_Beta$rowname, levels=unique(post_Beta$rowname))
 post_Beta$group <- ifelse(post_Beta$means > 0, "positive", "negative")
 
+j <- ggplot(post_Beta)
+j + geom_errorbar(aes(x = rowname, ymin = X2.5., ymax = X97.5.,color = as.factor(group)), width = 0.2, size = 1)+
+  scale_color_manual(values = c("positive" = "indianred1", "negative" = "royalblue")) +
+  geom_point(aes(rowname, means), shape = 16, size = 2) +
+  geom_hline(linetype = "dotted", size = 0.5, aes(yintercept = 0))+
+  # labs(title = expression(paste("95% credible intervals of ", beta)), color = NULL)+
+  labs(x = "cell type and covariate pairs", y = expression(paste("values of ", beta)), color = NULL)+
+  theme( panel.background = element_blank(),
+         axis.title = element_text(size = 15),
+         axis.line = element_line(size = 0.2, color = "black"),
+         axis.text.x=element_text(hjust = 0, size = 15), 
+         axis.text.y=element_text(size = 15), 
+         plot.title=element_text(hjust=0.5, size = 18),
+         plot.margin = margin(0.2, 3, 0.2, 0.2, "cm"),
+         legend.position="none")+
+  coord_flip(ylim = c(-2, 2))
+
 ```
 this is the plot of the 95% credible interval of Beta
 
-
-## Here i want to use 1.pdf from the fiture folder in the repository
-<img src='figure/1.png' width='100%' height='100%'> 
+<img src='figure/data 2/2-1.png' width='50%' height='50%'> 
