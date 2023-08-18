@@ -6,7 +6,7 @@ The abundance of certain cell types can be strikingly different in patients with
 This is a repo for the paper "Bayesian Dirichlet-Multinomial Regression Model for Integrative Analysis of Clinical and Single Cell Data". The repo contains the code for the simulation study and the real data analysis. 
 ### Required packages to run the code
 The code is written in R. The following packages are required to run the code:
-```{r}
+```r
 library(purrr)
 library(Rlab)
 library(MCMCprecision)
@@ -20,7 +20,7 @@ library(ape)
 ```
 
 and the main function is in the file "DMLN.cpp".
-```{r}
+```r
 sourceCpp("DMLN.cpp")
 source("helper_function.R")
 ```
@@ -29,7 +29,7 @@ source("helper_function.R")
 Since the data is already preprocessed, we can directly import the data and do a basic data cleaning.
 
 
-```{r}
+```r
 X_raw <- read.csv("~/Desktop/Research/DM Model/Research/data/final/data2/X.csv", check.names=FALSE)
 Y_raw <- read.csv("~/Desktop/Research/DM Model/Research/data/final/data2/Y.csv", check.names=FALSE)
 
@@ -44,7 +44,7 @@ Y <- Y[ind,]
 ```
 
 then we can run the DM model
-```{r}
+```r
 T <-20000
 d = 731
 N <- dim(X)[1]
@@ -55,7 +55,7 @@ result <- DMLN(X,Y,T = T, tau = 1, tau_beta_1 = 1, tau_beta_2 = 0.5, d = d) # ru
 
 ```
 and save the results for further analysis
-```{r}
+```r
 Beta_0_store <- result$Beta_0_store
 Delta_store <- result$Delta_store
 Beta_store <- result$Beta_store
@@ -81,7 +81,7 @@ for (i in 1:R){
 then we can plot the results
 ### heatmap of the PPI of Delta and Beta
 
-```{r}
+```r
 threshold <- BayFDR(as.vector(deltaPPI), 0.05)
 
 BetaPPI2 <- BetaPPI
@@ -141,7 +141,7 @@ ggplot(data2, aes(Var1, Var2, fill= value)) +
 
 ```
 ### 95/% credible interval of Beta
-```{r}
+```r
 row_name <- colnames(X)
 col_name <- colnames(Y)
 
@@ -190,4 +190,3 @@ j + geom_errorbar(aes(x = rowname, ymin = X2.5., ymax = X97.5.,color = as.factor
          legend.position="none")+
   coord_flip(ylim = c(-2, 2))
   ```
-
