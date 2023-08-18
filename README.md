@@ -141,8 +141,8 @@ ggplot(data2, aes(Var1, Var2, fill= value)) +
 
 ```
 <p float="left">
-    <img src='figure/data 2/data2-1.png' width='50%' height='50%' /> 
-    <img src='figure/data 2/data2-2.png' width='50%' height='50%' /> 
+    <img src='figure/data 2/data2-1.png' width='450%' height='45%' /> 
+    <img src='figure/data 2/data2-2.png' width='45%' height='45%' /> 
 </p>
 
 ### 95% credible interval of Beta
