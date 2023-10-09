@@ -5,7 +5,8 @@ The abundance of certain cell types can be strikingly different in patients with
 ## Introduction
 This is a repo for the paper "Bayesian Dirichlet-Multinomial Regression Model for Integrative Analysis of Clinical and Single Cell Data". The repo contains the code for the simulation study and the real data analysis. 
 ### Required packages to run the code
-The code is written in R. The following packages are required to run the code:
+The model was developed and tested under R 4.2.2
+The following packages are required to run the code:
 ```r
 library(purrr)
 library(Rlab)
