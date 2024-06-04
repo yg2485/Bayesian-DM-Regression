@@ -81,7 +81,8 @@ for (i in 1:R){
 ```
 
 then we can plot the results
-### heatmap of the PPI of Delta and Beta
+
+### heatmap of the PPI of $\Delta$ and posterior $B$
 
 ```r
 threshold <- BayFDR(as.vector(deltaPPI), 0.05)
@@ -147,7 +148,7 @@ ggplot(data2, aes(Var1, Var2, fill= value)) +
     <img src='figure/data 2/data2-2.png' width='45%' height='45%' /> 
 </p>
 
-### 95% credible interval of Beta
+### 95% credible interval of $B$
 ```r
 row_name <- colnames(X)
 col_name <- colnames(Y)
