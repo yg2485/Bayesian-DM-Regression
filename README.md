@@ -1,9 +1,9 @@
-# Bayesian DM Regression Model for Integrative Analysis of Clinical and Single Cell Data
+# A Regularized Bayesian Dirichlet-multinomial Regression Model for Integrating Single-cell-level Omics and Patient-level Clinical Study Data
 
-The abundance of certain cell types can be strikingly different in patients with various disease states. In addition to the association between cell-type abundance and phenotypes, recent scientific advancements provide mounting evidence that other clinical variables such as age, gender, and lifestyle habits, can all modulate the abundance of certain cell types. However, current methods for integrating cell-type abundance data and other covariates remain insufficient. In this study, we generated cell-type abundance data from single cell data, and integrated clinical variables with the cell-type abundance data by introducing a hierarchical Bayesian Dirichlet-Multinomial regression framework to reveal their relationships. Our model demonstrates strong performance with simulated data. Furthermore, we successfully uncovered significant relationships between certain cell types and some clinical variables in the study of three real datasets, providing insights into how cells and clinical features are interacted with each other. Overall, we propose a Bayesian regression model that elucidates the interplay between cell-type abundance and clinical covariates, which could potentially be useful for clinical intervention in various diseases.
+The abundance of various cell types can vary significantly among patients with varying phenotypes and even those with the same phenotype. Recent scientific advancements provide mounting evidence that other clinical variables, such as age, gender, and lifestyle habits, can also influence the abundance of certain cell types. However, current methods for integrating single-cell-level omics data with clinical variables are inadequate. In this study, we propose a regularized Bayesian Dirichlet-multinomial regression framework to investigate the relationship between single-cell RNA sequencing data and patient-level clinical data. Additionally, the model employs a novel hierarchical tree structure to identify such relationships at different cell-type levels. Our model successfully uncovers significant associations between specific cell types and clinical variables across three distinct diseases: pulmonary fibrosis, COVID-19, and non-small cell lung cancer. This integrative analysis provides biological insights and could potentially inform clinical interventions for various diseases.
 
 ## Introduction
-This is a repo for the paper "Bayesian Dirichlet-Multinomial Regression Model for Integrative Analysis of Clinical and Single Cell Data". The repo contains the code for the simulation study and the real data analysis. 
+This is a repo for the paper "A Regularized Bayesian Dirichlet-multinomial Regression Model for Integrating Single-cell-level Omics and Patient-level Clinical Study Data". The repo contains the code for the simulation study and the real data analysis. 
 ### Required packages to run the code
 The model was developed and tested under R 4.2.2
 The following packages are required to run the code:
@@ -31,12 +31,13 @@ Since the data is already preprocessed, we can directly import the data and do a
 
 
 ```r
-X_raw <- read.csv("~/Desktop/Research/DM Model/Research/data/final/data2/X.csv", check.names=FALSE)
-Y_raw <- read.csv("~/Desktop/Research/DM Model/Research/data/final/data2/Y.csv", check.names=FALSE)
+X_raw <- read.csv("~/data/data2/X.csv", check.names=FALSE)
+Y_raw <- read.csv("~/data/data2/Y.csv", check.names=FALSE)
 
 X <- data.matrix(X_raw, rownames.force = NA)
 Y <- data.matrix(Y_raw, rownames.force = NA)
 
+# the following preprocessing steps is for the Covid-19 dataset (data2)
 X <- X[,-c(4)]
 ind <- which(rowSums(Y) > 200)
 X <- X[ind,]
@@ -47,7 +48,7 @@ Y <- Y[ind,]
 then we can run the DM model
 ```r
 T <-20000
-d = 731
+d = 731 # random seed
 N <- dim(X)[1]
 R <- dim(X)[2]
 P <- dim(Y)[2]
