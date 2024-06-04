@@ -22,8 +22,8 @@ library(ape)
 
 and the main function is in the file "DMLN.cpp".
 ```r
-sourceCpp("DMLN.cpp")
-source("helper_function.R")
+sourceCpp("./DMLN.cpp")
+source("./helper_function.R")
 ```
 
 ## Real data analysis
